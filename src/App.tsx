@@ -21,32 +21,25 @@ const App = () => {
     setOnboarded(false);
   };
 
-  if (!onboarded) {
-    return (
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Sonner />
-          <Index />
-        </TooltipProvider>
-      </QueryClientProvider>
-    );
-  }
-
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Sonner />
         <BrowserRouter>
-          <AppLayout>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/workout" element={<WorkoutPage />} />
-              <Route path="/diet" element={<DietPage />} />
-              <Route path="/progress" element={<ProgressPage />} />
-              <Route path="/profile" element={<ProfilePage onReset={handleReset} />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </AppLayout>
+          {!onboarded ? (
+            <Index />
+          ) : (
+            <AppLayout>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/workout" element={<WorkoutPage />} />
+                <Route path="/diet" element={<DietPage />} />
+                <Route path="/progress" element={<ProgressPage />} />
+                <Route path="/profile" element={<ProfilePage onReset={handleReset} />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </AppLayout>
+          )}
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
